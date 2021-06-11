@@ -48,7 +48,6 @@ function maketemplate
 
 
 if [[ $# < 2 || $# > 2 ]]; then
-    echo $#
     usage
     exit 0
 fi
