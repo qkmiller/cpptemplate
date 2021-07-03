@@ -1,9 +1,12 @@
 #!/usr/bin/env bash
 
-bin=$HOME/.local/bin
-config=$HOME/.config/templates/cpp
-mkdir -p $bin $config
-cp $PWD/newproject.sh $bin/newproject
-cp $PWD/template.mk $config
-cp $PWD/template_main.cpp $config
-chmod +x $bin/newproject
+bin=$HOME/.local/bin/
+templates=$HOME/.config/mkproject/templates/
+
+echo "Installing to $HOME/.local/bin"
+echo "Copying templates to $HOME/.config/mkproject/templates"
+mkdir -p $bin $templates
+cp -i $PWD/mkproject $bin/mkproject
+cp -i $PWD/cpp_makefile.mk $templates
+cp -i $PWD/cpp_main.cpp $templates
+#chmod +x $bin/mkproject

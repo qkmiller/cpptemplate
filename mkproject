@@ -32,18 +32,18 @@ function version
     echo "$SCRIPT version $VERSION"
 }
 
-function makedirs
+function cpp_makedirs
 {
     echo "Making directories..."
     mkdir -p $PWD/$NAME/src $PWD/$NAME/bin $PWD/$NAME/obj $PWD/$NAME/debug
 }
 
-function maketemplate
+function cpp_maketemplate
 {
     echo "Creating makefile template..."
-    sed s/\<PROJECTNAME\>/$NAME/g $HOME/.config/templates/cpp/template.mk > ./$NAME/Makefile
+    sed s/\<PROJECTNAME\>/$NAME/g $HOME/.config/mkproject/templates/cpp_makefile.mk > ./$NAME/Makefile
     echo "Creating main template..."
-    cat $HOME/.config/templates/cpp/template_main.cpp > ./$NAME/src/main.cpp
+    cat $HOME/.config/mkproject/templates/cpp_main.cpp > ./$NAME/src/main.cpp
 }
 
 
@@ -66,8 +66,8 @@ do
 done
 case "$TYPE" in
     cpp)
-        makedirs
-        maketemplate
+        cpp_makedirs
+        cpp_maketemplate
         exit 0
         ;;
     *)
