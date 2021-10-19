@@ -32,16 +32,23 @@ CLEAN_LIST := $(TARGET) \
 			  $(TARGET_DEBUG) \
 			  $(DISTCLEAN_LIST)
 
+# Per obj dependencies
+DEPS := $(patsubst %.o,%.d,$(OBJ))
+DEPS += $(patsubst %.o,%.d,$(OBJ_DEBUG))
+DEPFLAGS = -MMD -MF $(@:.o=.d)
+
+
 default: makedir all
 
+-include $(DEPS)
 $(TARGET): $(OBJ)
 	$(CC) $(CCFLAGS) -o $@ $(OBJ)
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c*
-	$(CC) $(CCOBJFLAGS) -o $@ $<
+	$(CC) $(CCOBJFLAGS) -o $@ $< $(DEPFLAGS)
 
 $(DBG_PATH)/%.o: $(SRC_PATH)/%.c*
-	$(CC) $(CCOBJFLAGS) $(DBGFLAGS) -o $@ $<
+	$(CC) $(CCOBJFLAGS) $(DBGFLAGS) -o $@ $< $(DEPFLAGS)
 
 $(TARGET_DEBUG): $(OBJ_DEBUG)
 	$(CC) $(CCFLAGS) $(DBGFLAGS) $(OBJ_DEBUG) -o $@
